@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>OneTouch Log - 完了</title>
+  <link rel="stylesheet" href="complete.css">
+  <script type="module" src="complete.js" defer></script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+
+  <main>
+    <h1>作業の完了</h1>
+    <form id="complete-form">
+      <label>
+        タスク名:
+        <input type="text" id="taskId" required />
+      </label><br><br>
+
+      <label>
+        メモ:
+        <textarea id="memo" rows="4" cols="40"></textarea>
+      </label><br><br>
+
+      <label>
+        評価:
+        <select id="evaluation" required>
+          <option value="">選択してください</option>
+          <option value="1">悪い</option>
+          <option value="2">やや悪い</option>
+          <option value="3">普通</option>
+          <option value="4">やや良い</option>
+          <option value="5">良い</option>
+        </select>
+      </label><br><br>
+
+      <button type="submit">記録を保存</button>
+    </form>
+  </main>
+</body>
+</html>

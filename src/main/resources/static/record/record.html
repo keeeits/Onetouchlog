@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>OneTouch Log - 作業中</title>
+  <link rel="stylesheet" href="record.css" />
+  <script type="module" src="record.js" defer></script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+
+  <main>
+    <h1>作業記録中</h1>
+    <p>開始時刻: <span id="start-time"></span></p>
+    <p>経過時間: <span id="elapsed-time">00:00:00</span></p>
+
+    <textarea id="memo" placeholder="メモを入力..." rows="4" cols="40"></textarea><br>
+
+    <button id="break-button">休憩</button>
+    <button id="end-button">終了</button>
+  </main>
+</body>
+</html>
