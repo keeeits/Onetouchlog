@@ -11,10 +11,16 @@
 
   <main>
     <h1>作業の完了</h1>
+    <p>
+      <span id="start-time">--:--</span>
+      →
+      <span id="end-time">--:--</span>
+    </p>
+    <p>合計作業時間: <span id="duration">00:00:00</span></p>
     <form id="complete-form">
       <label>
         タスク名:
-        <input type="text" id="taskId" required />
+        <input type="text" id="taskName" placeholder="作業内容を入力してください">
       </label><br><br>
 
       <label>
@@ -34,7 +40,7 @@
         </select>
       </label><br><br>
 
-      <button type="submit">記録を保存</button>
+      <button type="submit">完了</button>
     </form>
   </main>
 </body>

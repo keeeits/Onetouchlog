@@ -4,30 +4,30 @@ let timerInterval;
 let startTime, breakStartTime;
 let totalBreakTime = 0;
 let isOnBreak = false;
+let workRecordId = null;
 
-window.addEventListener("DOMContentLoaded", () => {
-  // サイドバー読み込み
+window.addEventListener("DOMContentLoaded", async () => {
   fetch("/common/sidebar.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("sidebar-container").innerHTML = html;
     });
 
-  // 開始時刻取得
-  const storedStartTime = localStorage.getItem("startTime");
-  if (!storedStartTime) {
-    alert("記録が開始されていません。");
+  try {
+    workRecordId = localStorage.getItem("recordId");
+    const startTimeStr = localStorage.getItem("startTime");
+
+    if (!workRecordId || !startTimeStr) {
+      throw new Error("作業記録が見つかりません。最初からやり直してください。");
+    }
+
+    startTime = new Date(startTimeStr);
+    timerInterval = setInterval(updateElapsedTime, 1000);
+  } catch (error) {
+    alert("記録開始に失敗しました: " + error.message);
     window.location.href = "/index.html";
-    return;
   }
 
-  startTime = new Date(storedStartTime);
-  document.getElementById("start-time").textContent = startTime.toLocaleTimeString();
-
-  // 経過時間タイマー開始
-  timerInterval = setInterval(updateElapsedTime, 1000);
-
-  // ボタン処理
   document.getElementById("break-button").addEventListener("click", toggleBreak);
   document.getElementById("end-button").addEventListener("click", endSession);
 });
@@ -55,9 +55,15 @@ function toggleBreak() {
   }
 }
 
-function endSession() {
+async function endSession() {
+  const now = new Date();
   const memo = document.getElementById("memo").value;
+  const totalMinutes = Math.floor((now - startTime - totalBreakTime) / 60000);
+
+  // ✅ サーバーにはまだ送らず、必要データをlocalStorageに保持
   localStorage.setItem("memo", memo);
-  localStorage.setItem("breakTimeMs", totalBreakTime);
+  localStorage.setItem("totalMinutes", totalMinutes.toString());
+
+  // ✅ complete.html で送信処理を行う
   window.location.href = "/complete/complete.html";
 }
