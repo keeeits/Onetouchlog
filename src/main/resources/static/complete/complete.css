@@ -2,35 +2,82 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #fff;
+  display: flex;
+}
+
+#sidebar-container {
+  width: 150px; /* 必要に応じてsidebar.cssと一致させて */
+  flex-shrink: 0;
 }
 
 main {
-  padding: 2rem;
+  flex: 1;
+  padding: 3rem 1rem;
   max-width: 600px;
   margin: 0 auto;
+  margin-left: 220px;
+}
+
+.center-align {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 中央寄せ */
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+  margin-top: 15vh;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.duration-text {
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 form label {
   display: block;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
-textarea, input, select {
+textarea,
+input,
+select {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   box-sizing: border-box;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 0.5rem;
 }
 
 button {
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #2b80ff;
-  color: white;
-  border: none;
+  background-color: white;
+  border: 2px solid black;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: 1rem;
 }
 
 button:hover {
-  background-color: #1a66cc;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

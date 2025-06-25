@@ -4,43 +4,51 @@
   <meta charset="UTF-8">
   <title>OneTouch Log - 完了</title>
   <link rel="stylesheet" href="complete.css">
+  <link rel="stylesheet" href="/common/sidebar.css">
   <script type="module" src="complete.js" defer></script>
 </head>
 <body>
   <div id="sidebar-container"></div>
 
   <main>
-    <h1>作業の完了</h1>
-    <p>
-      <span id="start-time">--:--</span>
-      →
-      <span id="end-time">--:--</span>
-    </p>
-    <p>合計作業時間: <span id="duration">00:00:00</span></p>
-    <form id="complete-form">
-      <label>
-        タスク名:
-        <input type="text" id="taskName" placeholder="作業内容を入力してください">
-      </label><br><br>
+    <div class="center-container">
+      <div class="center-align">
+        <h1>作業の完了</h1>
+        <p>
+          <span id="start-time">--:--</span>
+          →
+          <span id="end-time">--:--</span>
+        </p>
+        <p class="duration-text">合計作業時間: <span id="duration">00:00:00</span></p>
+      </div>
 
-      <label>
-        メモ:
-        <textarea id="memo" rows="4" cols="40"></textarea>
-      </label><br><br>
+      <form id="complete-form">
+        <label>
+          タスク名:
+          <input type="text" id="taskName" placeholder="作業内容を入力してください">
+        </label><br><br>
 
-      <label>
-        評価:
-        <select id="evaluation" required>
-          <option value="">選択してください</option>
-          <option value="1">悪い</option>
-          <option value="2">やや悪い</option>
-          <option value="3">普通</option>
-          <option value="4">やや良い</option>
-          <option value="5">良い</option>
-        </select>
-      </label><br><br>
+        <label>
+          メモ:
+          <textarea id="memo" rows="4" cols="40"></textarea>
+        </label><br><br>
 
-      <button type="submit">完了</button>
+        <label>
+          評価:
+          <select id="evaluation" required>
+            <option value="">選択してください</option>
+            <option value="1">悪い</option>
+            <option value="2">やや悪い</option>
+            <option value="3">普通</option>
+            <option value="4">やや良い</option>
+            <option value="5">良い</option>
+          </select>
+        </label><br><br>
+
+        <div class="center-align">
+          <button type="submit">完了</button>
+        </div>
+      </div>
     </form>
   </main>
 </body>
