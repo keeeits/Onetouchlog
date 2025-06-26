@@ -33,9 +33,9 @@
           <textarea id="memo" rows="4" cols="40"></textarea>
         </label><br><br>
 
-        <label>
+        <label style="display: none;">
           評価:
-          <select id="evaluation" required>
+          <select id="evaluation">
             <option value="">選択してください</option>
             <option value="1">悪い</option>
             <option value="2">やや悪い</option>
@@ -48,8 +48,8 @@
         <div class="center-align">
           <button type="submit">完了</button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div> <!-- ← 正しい位置で center-container を閉じる -->
   </main>
 </body>
 </html>

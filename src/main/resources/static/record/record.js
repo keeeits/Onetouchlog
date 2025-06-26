@@ -58,12 +58,12 @@ function toggleBreak() {
 async function endSession() {
   const now = new Date();
   const memo = document.getElementById("memo").value;
-  const totalMinutes = Math.floor((now - startTime - totalBreakTime) / 60000);
+  const totalMs = now - startTime - totalBreakTime;
 
-  // ✅ サーバーにはまだ送らず、必要データをlocalStorageに保持
   localStorage.setItem("memo", memo);
-  localStorage.setItem("totalMinutes", totalMinutes.toString());
+  localStorage.setItem("totalMs", totalMs.toString());
 
-  // ✅ complete.html で送信処理を行う
+  await new Promise(resolve => setTimeout(resolve, 50));
+
   window.location.href = "/complete/complete.html";
 }
