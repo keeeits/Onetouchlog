@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       await completeWorkRecord({
-        id,
+        id: Number(id),
         endTime: end.toISOString(),
         totalMinutes: Number(totalMs) / 60000, // サーバーには分で送信
         taskName,

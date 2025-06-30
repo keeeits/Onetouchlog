@@ -2,7 +2,7 @@ package com.example.onetouch.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class WorkRecord {
@@ -14,8 +14,8 @@ public class WorkRecord {
     private String taskName;
     private String memo;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     private long totalMinutes;
 
@@ -24,11 +24,11 @@ public class WorkRecord {
 
     // ===== Setter =====
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -66,11 +66,11 @@ public class WorkRecord {
         return memo;
     }
 
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 

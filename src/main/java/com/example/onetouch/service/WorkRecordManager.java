@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @Service
 public class WorkRecordManager {
@@ -21,10 +23,12 @@ public class WorkRecordManager {
             throw new IllegalStateException("作業記録はすでに開始されています");
         }
 
+        LocalDateTime now = LocalDateTime.now();
+
         currentRecord = new WorkRecord();
-        currentRecord.setStartTime(LocalDateTime.now());
-        currentRecord.setDate(LocalDateTime.now().toLocalDate());
-        currentRecord.setDayOfWeek(LocalDateTime.now().getDayOfWeek().toString());
+        currentRecord.setStartTime(now.toLocalTime()); // LocalTimeに変換
+        currentRecord.setDate(now.toLocalDate());
+        currentRecord.setDayOfWeek(now.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.JAPANESE)); // 月・火など
 
         return currentRecord;
     }
@@ -35,7 +39,8 @@ public class WorkRecordManager {
             throw new IllegalStateException("作業記録が開始されていません");
         }
 
-        currentRecord.setEndTime(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        currentRecord.setEndTime(now.toLocalTime()); // LocalTimeに変換
         currentRecord.setTaskName(taskName);
         currentRecord.setMemo(memo);
         currentRecord.setTotalMinutes(currentRecord.calculateTotalMinutes());

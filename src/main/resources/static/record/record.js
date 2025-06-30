@@ -7,6 +7,7 @@ let isOnBreak = false;
 let workRecordId = null;
 
 window.addEventListener("DOMContentLoaded", async () => {
+  // サイドバー読み込み
   fetch("/common/sidebar.html")
     .then(res => res.text())
     .then(html => {
@@ -21,7 +22,9 @@ window.addEventListener("DOMContentLoaded", async () => {
       throw new Error("作業記録が見つかりません。最初からやり直してください。");
     }
 
+    // ⬇️ ここを忘れると elapsedMs が NaN になります
     startTime = new Date(startTimeStr);
+
     timerInterval = setInterval(updateElapsedTime, 1000);
   } catch (error) {
     alert("記録開始に失敗しました: " + error.message);
