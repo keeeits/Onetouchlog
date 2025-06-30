@@ -8,12 +8,14 @@ window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("sidebar-container").innerHTML = html;
     });
 
-  const startTimeStr = localStorage.getItem("startTime");
+  const startTimeStr = localStorage.getItem("startTime"); // ISO形式
   const totalMs = localStorage.getItem("totalMs");
+
   const start = startTimeStr ? new Date(startTimeStr) : null;
   const end = new Date();
 
   if (start) {
+    // ✅ 表示用に "HH:mm" に整形
     document.getElementById("start-time").textContent = start.toTimeString().slice(0, 5);
   }
   document.getElementById("end-time").textContent = end.toTimeString().slice(0, 5);
@@ -45,18 +47,19 @@ window.addEventListener("DOMContentLoaded", () => {
     try {
       await completeWorkRecord({
         id: Number(id),
-        endTime: end.toISOString(),
-        totalMinutes: Number(totalMs) / 60000, // サーバーには分で送信
+        endTime: end.toISOString(), // ✅ ISO形式で送信
+        totalMinutes: Number(totalMs) / 60000,
         taskName,
         memo,
         evaluation
       });
 
-      localStorage.clear();
       alert("作業記録を保存しました！");
-      window.location.href = "/index.html";
     } catch (err) {
       alert("保存に失敗しました：" + err.message);
+    } finally {
+      localStorage.clear();
+      window.location.href = "/index.html";
     }
   });
 });

@@ -22,28 +22,30 @@ public class MainController {
     private WorkRecordRepository repository;
 
     // ✅ 作業開始：DBに即保存し、IDと開始時刻を返す
+    // Javaコードで LocalDateTime をそのままISO文字列で返す
     @PostMapping("/start")
     public ResponseEntity<?> startRecord() {
         try {
-            WorkRecord record = new WorkRecord();
             LocalDateTime now = LocalDateTime.now();
+            WorkRecord record = new WorkRecord();
 
-            record.setStartTime(now.toLocalTime());  // LocalTime型で保存
+            record.setStartTime(now.toLocalTime()); // DBには時間だけ保存してもよい
             record.setDate(now.toLocalDate());
             record.setDayOfWeek(getJapaneseDayOfWeek(now));
 
             WorkRecord saved = repository.save(record);
 
-            // ✅ "HH:mm" 形式で返すように修正
+            // ✅ ISO形式 "2025-06-30T10:53:00" を返す
             return ResponseEntity.ok(Map.of(
                 "id", saved.getId(),
-                "startTime", saved.getStartTime().toString().substring(0, 5)
+                "startTime", now.toString()
             ));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("作業開始時にエラーが発生しました。");
         }
     }
+
 
     // ✅ 作業完了：idに紐づくレコードを更新して保存
     @PostMapping("/complete")

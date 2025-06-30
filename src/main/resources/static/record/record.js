@@ -22,8 +22,15 @@ window.addEventListener("DOMContentLoaded", async () => {
       throw new Error("作業記録が見つかりません。最初からやり直してください。");
     }
 
-    // ⬇️ ここを忘れると elapsedMs が NaN になります
+    // ✅ ISO形式の文字列を Date オブジェクトに直接変換
     startTime = new Date(startTimeStr);
+
+    if (isNaN(startTime.getTime())) {
+      throw new Error("開始時刻の形式が不正です。");
+    }
+
+    console.log("取得された startTimeStr:", startTimeStr);
+    console.log("Date変換結果:", startTime);
 
     timerInterval = setInterval(updateElapsedTime, 1000);
   } catch (error) {
@@ -67,6 +74,5 @@ async function endSession() {
   localStorage.setItem("totalMs", totalMs.toString());
 
   await new Promise(resolve => setTimeout(resolve, 50));
-
   window.location.href = "/complete/complete.html";
 }

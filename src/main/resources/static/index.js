@@ -6,33 +6,43 @@ window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("sidebar-container").innerHTML = html;
     });
 
-  // 開始ボタンの処理
   const startBtn = document.getElementById("start-btn");
   startBtn.addEventListener("click", async () => {
-  try {
-    const response = await fetch("http://localhost:8080/record/start", {
-      method: "POST"
-    });
+    // ✅ 前回の残データをクリア
+    localStorage.removeItem("startTime");
+    localStorage.removeItem("totalMs");
+    localStorage.removeItem("memo");
 
-    if (!response.ok) {
-      const msg = await response.text();
+    try {
+      const response = await fetch("http://localhost:8080/record/start", {
+        method: "POST"
+      });
 
-      // 🔽 すでに作業中だったら遷移だけする（保存はされない）
-      if (msg.includes("すでに作業中です")) {
-        alert("すでに作業中の記録があります。続きから開始します。");
-        window.location.href = "record/record.html";
-        return;
+      if (!response.ok) {
+        const msg = await response.text();
+
+        if (msg.includes("すでに作業中です")) {
+          alert("すでに作業中の記録があります。続きから開始します。");
+          window.location.href = "record/record.html";
+          return;
+        }
+
+        throw new Error(msg);
       }
 
-      // 他のエラーは通常通り止める
-      throw new Error(msg);
-    }
+      const data = await response.json();
+      console.log("サーバーから受け取ったレスポンス:", data);
 
-    const data = await response.json();
-    localStorage.setItem("recordId", data.id);
-    localStorage.setItem("startTime", data.startTime);
-    window.location.href = "record/record.html";
-  } catch (err) {
+      if (!data.startTime) {
+        throw new Error("サーバーから開始時刻が受け取れませんでした。");
+      }
+
+      // ✅ ISO形式（"2025-06-30T11:23:45.000Z"）で保存
+      localStorage.setItem("recordId", data.id);
+      localStorage.setItem("startTime", data.startTime);  // ←そのまま保存
+
+      window.location.href = "record/record.html";
+    } catch (err) {
       alert("作業開始に失敗しました: " + err.message);
       console.error(err);
     }
